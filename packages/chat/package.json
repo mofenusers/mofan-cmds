@@ -14,5 +14,6 @@
     "chatgpt-io": "^1.1.1",
     "inquirer": "^9.1.4"
   },
+  "bin": "chat.js",
   "gitHead": "df7769b3534db8c16613a5ce24890a6719602929"
 }
