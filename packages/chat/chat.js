@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import chatGPT from "chatgpt-io";
 import inquirer from "inquirer";
 
