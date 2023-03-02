@@ -16,5 +16,5 @@
   },
   "bin": "./cmds/dash",
   "main": "./cmds/dash",
-  "gitHead": "15ec46ca5e356fe4ea856dd690c8628b77236fa8"
+  "gitHead": "df7769b3534db8c16613a5ce24890a6719602929"
 }
