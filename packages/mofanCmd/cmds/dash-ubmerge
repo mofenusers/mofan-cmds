@@ -35,7 +35,7 @@ program
     const run = (branchs) => {
       branchs.forEach((branch) => {
         const { code, stderr } = shelljs.exec(
-          `dashcmd autoMerge ${branch} ${source}`
+          `mofancmds autoMerge ${branch} ${source}`
         );
         if (code !== 0) {
           console.log(
