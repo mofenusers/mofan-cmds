@@ -1,5 +1,5 @@
 {
-  "name": "mofancmds",
+  "name": "@xiagr/mofancmds",
   "version": "1.0.4",
   "description": "",
   "keywords": [],
@@ -16,5 +16,5 @@
   },
   "bin": "./cmds/dash",
   "main": "./cmds/dash",
-  "gitHead": "8025965c0af3238973b66ea669516f37b13f0fb3"
+  "gitHead": "7a047de8df8347914efc225590bb7aebc0ba6bb1"
 }
