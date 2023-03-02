@@ -1,5 +1,5 @@
 {
-  "name": "dashcmd",
+  "name": "mofan-cmds",
   "version": "1.0.1",
   "description": "",
   "keywords": [],
@@ -15,5 +15,6 @@
     "shelljs": "^0.8.5"
   },
   "bin": "./cmds/dash",
-  "main": "./cmds/dash"
+  "main": "./cmds/dash",
+  "gitHead": "68b296d2fab2a0fd3f28b572c5bef0b12cebdb01"
 }
