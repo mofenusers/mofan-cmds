@@ -1,5 +1,5 @@
 {
-  "name": "mofanCmds",
+  "name": "mofancmds",
   "version": "1.0.3",
   "description": "",
   "keywords": [],
@@ -16,5 +16,5 @@
   },
   "bin": "./cmds/dash",
   "main": "./cmds/dash",
-  "gitHead": "68b296d2fab2a0fd3f28b572c5bef0b12cebdb01"
+  "gitHead": "8025965c0af3238973b66ea669516f37b13f0fb3"
 }
