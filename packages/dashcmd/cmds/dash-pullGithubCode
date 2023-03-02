@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+const program = require("commander");
+const shelljs = require("../utils/shelljsUtil");
+const config = require("../config.json");
+
+const gitNameRegExp = /(((\w*)(\-*))*)\.git$/;
+program
+  .command("pullGithubCode <url> [name] [path]")
+  .action(function (url, name) {
+    const dirPathAbsolute = config.githubCodeDir;
+    console.log(process.cwd());
+    if (!name) {
+      name = gitNameRegExp.exec(url)[1];
+    }
+    if (!path) {
+      path = dirPathAbsolute;
+    }
+    shelljs.cd(path);
+    shelljs.exec(`git clone ${url}`, (error) => {
+      if (error) {
+        console.error(error.toString());
+      } else {
+        shelljs.cd(name);
+
+        shelljs.exec(`code .`);
+      }
+    });
+  })
+  .parse(process.argv);

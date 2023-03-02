@@ -1,0 +1,19 @@
+{
+  "name": "dashcmd",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "link": "npm link"
+  },
+  "dependencies": {
+    "chatgpt": "^4.2.0",
+    "commander": "^10.0.0",
+    "inquirer": "8.1.0",
+    "shelljs": "^0.8.5"
+  },
+  "bin": "./cmds/dash",
+  "main": "./cmds/dash"
+}

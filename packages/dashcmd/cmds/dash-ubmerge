@@ -1,0 +1,61 @@
+#!/usr/bin/env node
+const program = require("commander");
+const inquirer = require("inquirer");
+const shelljs = require("../utils/shelljsUtil");
+
+// const jenkinsUrl = (app, env) =>
+//   `http://192.168.0.163:8080/job/tenant-fe/job/${env}/job/${app}/build?token=jenkins-szhtxx-token `;
+
+const questions = [
+  {
+    type: "checkbox",
+    name: "gitBranchs",
+    message: "请选择想要更新的分支",
+    choices: [
+      {
+        name: "dev",
+        value: "dev",
+      },
+      {
+        name: "test",
+        value: "test",
+      },
+      {
+        name: "uat",
+        value: "uat",
+        checked: true,
+      },
+    ],
+  },
+];
+program
+  .option("-s, --source <source>", "source branch")
+  .option("-t, --targets [targets...]", "target branch")
+  .action(function ({ source, targets }, args) {
+    const run = (branchs) => {
+      branchs.forEach((branch) => {
+        const { code, stderr } = shelljs.exec(
+          `dashcmd autoMerge ${branch} ${source}`
+        );
+        if (code !== 0) {
+          console.log(
+            "🚀 ~ file: dash-updateCode:43 ~ gitBranchs.forEach ~ error",
+            stderr
+          );
+          shelljs.exit(1);
+        } else {
+          shelljs.exec(`git push`);
+        }
+      });
+      shelljs.exec(`git checkout ${source}`);
+    };
+    if (targets && targets.length) {
+      run(targets);
+    } else {
+      inquirer.prompt(questions).then((answer) => {
+        const { gitBranchs } = answer;
+        run(gitBranchs);
+      });
+    }
+  })
+  .parse(process.argv);
