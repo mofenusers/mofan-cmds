@@ -35,6 +35,7 @@ program
   });
 
 program.command("ubmerge", "update branch by merge");
+program.command("acommit", "auto commit");
 program.command("autoMerge", "auto mergeBranch git cmd");
 program.command("pullGithubCode", "auto pull github code and open with vscode");
 program.command("setGithubCodeDir", "set github code absolute dir");
