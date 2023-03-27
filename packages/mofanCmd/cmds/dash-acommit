@@ -49,12 +49,7 @@ const descQuestion = [
 program
   .action(function () {
     const run = (commitType, desc) => {
-      console.log("🚀 ~ file: dash-acommit:54 ~ desc:", desc);
       shelljs.exec(`git add .`);
-      console.log(
-        "🚀 ~ file: dash-acommit:57 ~ run ~ git commit -m ${commitType} ",
-        `git commit -m  "${commitType}: ${desc}"`
-      );
       const { code, stderr } = shelljs.exec(
         `git commit -m "${commitType}: ${desc}"`
       );
@@ -72,7 +67,6 @@ program
 
     inquirer.prompt(typeQuestions).then((answer) => {
       const { commitType } = answer;
-      // rl.question("请输入描述信息", async (desc) => run(commitType, desc));
       inquirer.prompt(descQuestion).then(({ desc }) => run(commitType, desc));
     });
   })
