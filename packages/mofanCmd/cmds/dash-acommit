@@ -114,6 +114,10 @@ program
       .then(({ updateCodeConfirm, stdout }) => {
         if (updateCodeConfirm) {
           return ask(targetBranchQuestions).then(({ gitBranchs }) => {
+            console.log(
+              "🚀 ~ file: dash-acommit:120 ~ returnask ~ `mofancmds ubmerge -s ${stdout} -t ${gitBranchs.join()}`:",
+              `mofancmds ubmerge -s ${stdout} -t ${gitBranchs.join(" ")}`
+            );
             shelljs.exec(
               `mofancmds ubmerge -s ${stdout} -t ${gitBranchs.join(" ")}`
             );
