@@ -1,33 +1,12 @@
 #!/usr/bin/env node
 const program = require("commander");
-const inquirer = require("inquirer");
 const shelljs = require("../utils/shelljsUtil");
+const { targetBranchQuestions } = require("../utils/config");
+const { ask } = require("../utils/inquireUtil");
 
 // const jenkinsUrl = (app, env) =>
 //   `http://192.168.0.163:8080/job/tenant-fe/job/${env}/job/${app}/build?token=jenkins-szhtxx-token `;
 
-const questions = [
-  {
-    type: "checkbox",
-    name: "gitBranchs",
-    message: "请选择想要更新的分支",
-    choices: [
-      {
-        name: "dev",
-        value: "dev",
-      },
-      {
-        name: "test",
-        value: "test",
-      },
-      {
-        name: "uat",
-        value: "uat",
-        checked: true,
-      },
-    ],
-  },
-];
 program
   .option("-s, --source <source>", "source branch")
   .option("-t, --targets [targets...]", "target branch")
@@ -54,7 +33,7 @@ program
       if (targetBranchs && targetBranchs.length) {
         run(targetBranchs, sourceBranch);
       } else {
-        inquirer.prompt(questions).then((answer) => {
+        ask(targetBranchQuestions).then((answer) => {
           const { gitBranchs } = answer;
           console.log(
             "🚀 ~ file: dash-ubmerge:73 ~ inquirer.prompt ~ gitBranchs:",

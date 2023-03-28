@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const program = require("commander");
-const inquirer = require("inquirer");
 const shelljs = require("../utils/shelljsUtil");
+const { targetBranchQuestions } = require("../utils/config");
+const { ask } = require("../utils/inquireUtil");
 
-const ask = inquirer.prompt;
 const typeQuestions = [
   {
     type: "list",
@@ -113,21 +113,14 @@ program
       })
       .then(({ updateCodeConfirm, stdout }) => {
         if (updateCodeConfirm) {
-          const {
-            code,
-            stdout: ubmergeStdout,
-            stderr,
-          } = shelljs.exec(`mofancmds ubmerge -s ${stdout}`, {
-            stdio: "inherit",
+          return ask(targetBranchQuestions).then(({ gitBranchs }) => {
+            shelljs.exec(
+              `mofancmds ubmerge -s ${stdout} -t ${gitBranchs.join(" ")}`
+            );
           });
-          console.log(
-            "🚀 ~ file: dash-acommit:82 ~ ]).then ~ ubmergeStdout:",
-            ubmergeStdout
-          );
-          console.log("🚀 ~ file: dash-acommit:81 ~ ]).then ~ code:", code);
+        } else {
+          shelljs.exit(1);
         }
-
-        shelljs.exit(0);
       });
   })
   .parse(process.argv);
