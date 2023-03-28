@@ -2,6 +2,7 @@
 const program = require("commander");
 const inquirer = require("inquirer");
 const shelljs = require("../utils/shelljsUtil");
+const { exec } = require("child_process");
 
 // const jenkinsUrl = (app, env) =>
 //   `http://192.168.0.163:8080/job/tenant-fe/job/${env}/job/${app}/build?token=jenkins-szhtxx-token `;
