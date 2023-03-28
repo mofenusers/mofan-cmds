@@ -2,7 +2,6 @@
 const program = require("commander");
 const inquirer = require("inquirer");
 const shelljs = require("../utils/shelljsUtil");
-const { exec } = require("child_process");
 
 // const jenkinsUrl = (app, env) =>
 //   `http://192.168.0.163:8080/job/tenant-fe/job/${env}/job/${app}/build?token=jenkins-szhtxx-token `;
@@ -33,19 +32,6 @@ program
   .option("-s, --source <source>", "source branch")
   .option("-t, --targets [targets...]", "target branch")
   .action(function ({ source, targets }, args) {
-    if (!source) {
-      exec("git branch --show-current", (err, stdout, stderr) => {
-        console.log("🚀 ~ file: dash-acommit:66 ~ exec ~ stdout:", stdout);
-        if (err) {
-          // handle your error
-          shelljs.exit(1);
-        }
-
-        dealwithBranchs(targets, stdout);
-      });
-    } else {
-      dealwithBranchs(targets, source);
-    }
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
         const { code, stderr } = shelljs.exec(
@@ -70,9 +56,15 @@ program
       } else {
         inquirer.prompt(questions).then((answer) => {
           const { gitBranchs } = answer;
+          console.log(
+            "🚀 ~ file: dash-ubmerge:73 ~ inquirer.prompt ~ gitBranchs:",
+            gitBranchs
+          );
           run(gitBranchs, sourceBranch);
         });
       }
     };
+    
+    dealwithBranchs(targets, source);
   })
   .parse(process.argv);
