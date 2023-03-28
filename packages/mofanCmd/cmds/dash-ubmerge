@@ -32,10 +32,23 @@ program
   .option("-s, --source <source>", "source branch")
   .option("-t, --targets [targets...]", "target branch")
   .action(function ({ source, targets }, args) {
-    const run = (branchs) => {
+    if (!source) {
+      exec("git branch --show-current", (err, stdout, stderr) => {
+        console.log("🚀 ~ file: dash-acommit:66 ~ exec ~ stdout:", stdout);
+        if (err) {
+          // handle your error
+          shelljs.exit(1);
+        }
+
+        dealwithBranchs(targets, stdout);
+      });
+    } else {
+      dealwithBranchs(targets, source);
+    }
+    const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
         const { code, stderr } = shelljs.exec(
-          `mofancmds autoMerge ${branch} ${source}`
+          `mofancmds autoMerge ${branch} ${sourceBranch}`
         );
         if (code !== 0) {
           console.log(
@@ -47,15 +60,18 @@ program
           shelljs.exec(`git push`);
         }
       });
-      shelljs.exec(`git checkout ${source}`);
+      shelljs.exec(`git checkout ${sourceBranch}`);
     };
-    if (targets && targets.length) {
-      run(targets);
-    } else {
-      inquirer.prompt(questions).then((answer) => {
-        const { gitBranchs } = answer;
-        run(gitBranchs);
-      });
-    }
+
+    const dealwithBranchs = (targetBranchs, sourceBranch) => {
+      if (targetBranchs && targetBranchs.length) {
+        run(targetBranchs, sourceBranch);
+      } else {
+        inquirer.prompt(questions).then((answer) => {
+          const { gitBranchs } = answer;
+          run(gitBranchs, sourceBranch);
+        });
+      }
+    };
   })
   .parse(process.argv);

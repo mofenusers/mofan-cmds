@@ -61,12 +61,7 @@ const updateCodeFn = () => {
     "🚀 ~ file: dash-acommit:61 ~ updateCode ~ updateCodeQuestion:",
     updateCodeQuestion
   );
-  exec("git branch --show-current", (err, stdout, stderr) => {
-    console.log("🚀 ~ file: dash-acommit:66 ~ exec ~ stdout:", stdout);
-    if (err) {
-      // handle your error
-    }
-  });
+  shelljs.exec(`mofancmds ubmerge`);
 };
 
 program
