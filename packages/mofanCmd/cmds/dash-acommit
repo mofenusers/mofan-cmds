@@ -60,7 +60,7 @@ const updateCodeFn = () => {
     "🚀 ~ file: dash-acommit:61 ~ updateCode ~ updateCodeQuestion:",
     updateCodeQuestion
   );
-};
+}; 
 
 program
   .action(function () {
