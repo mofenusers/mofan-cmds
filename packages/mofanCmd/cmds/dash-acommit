@@ -57,8 +57,15 @@ const updateCodeQuestion = [
 
 const updateCodeFn = () => {
   const { code, stdout, stderr } = shelljs.exec(`git branch --show-current`);
-  console.log("🚀 ~ file: dash-acommit:62 ~ updateCodeFn ~ stdout:", stdout);
-  console.log("🚀 ~ file: dash-acommit:66 ~ exec ~ stdout:", stdout);
+  const currentBranch = stdout.replace(" ", "");
+  console.log(
+    "🚀 ~ file: dash-acommit:62 ~ updateCodeFn ~ stdout:",
+    currentBranch
+  );
+  console.log(
+    "🚀 ~ file: dash-acommit:66 ~ exec ~ currentBranch:",
+    currentBranch
+  );
   if (code !== 0) {
     // handle your error
     console.error(
@@ -71,12 +78,12 @@ const updateCodeFn = () => {
     {
       type: "confirm",
       name: "updateCodeConfirm",
-      message: `你当前在${stdout}分支，确认更新代码至环境分支吗？`,
+      message: `你当前在${currentBranch}分支，确认更新代码至环境分支吗？`,
     },
   ]).then(({ updateCodeConfirm }) => {
     return {
       updateCodeConfirm,
-      stdout,
+      currentBranch,
     };
   });
 };
@@ -96,7 +103,7 @@ program
         );
         shelljs.exit(1);
       } else {
-        shelljs.exec(`git push`);
+        // shelljs.exec(`git push`);
         shelljs.exec(`git status`);
       }
     };
@@ -111,15 +118,15 @@ program
           ({ updateCode }) => updateCode && updateCodeFn()
         );
       })
-      .then(({ updateCodeConfirm, stdout }) => {
+      .then(({ updateCodeConfirm, currentBranch }) => {
         if (updateCodeConfirm) {
           return ask(targetBranchQuestions).then(({ gitBranchs }) => {
             console.log(
               "🚀 ~ file: dash-acommit:120 ~ returnask ~ `mofancmds ubmerge -s ${stdout} -t ${gitBranchs.join()}`:",
-              `mofancmds ubmerge -s ${stdout} -t ${gitBranchs}`
+              `mofancmds ubmerge -s ${currentBranch} -t ${gitBranchs}`
             );
             shelljs.exec(
-              `mofancmds ubmerge -s ${stdout} -t ${gitBranchs}`
+              `mofancmds ubmerge -s ${currentBranch} -t ${gitBranchs.join(" ")}`
             );
           });
         } else {
