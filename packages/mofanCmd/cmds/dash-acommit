@@ -75,10 +75,14 @@ const updateCodeFn = () => {
     },
   ]).then(({ updateCodeConfirm }) => {
     if (updateCodeConfirm) {
-      console.log("🚀 ~ file: dash-acommit:77 ~ ]).then ~ stdout:", stdout);
-      const { code, stdout, stderr } = shelljs.exec(
-        `mofancmds ubmerge -s ${stdout}`,
-        { async: false }
+      const {
+        code,
+        stdout: ubmergeStdout,
+        stderr,
+      } = shelljs.exec(`mofancmds ubmerge -s ${stdout}`, { async: false });
+      console.log(
+        "🚀 ~ file: dash-acommit:82 ~ ]).then ~ ubmergeStdout:",
+        ubmergeStdout
       );
       console.log("🚀 ~ file: dash-acommit:81 ~ ]).then ~ code:", code);
     } else {
