@@ -76,7 +76,7 @@ const updateCodeFn = () => {
   ]).then(({ updateCodeConfirm }) => {
     if (updateCodeConfirm) {
       console.log("🚀 ~ file: dash-acommit:77 ~ ]).then ~ stdout:", stdout);
-      shelljs.source(`mofancmds ubmerge -s ${stdout}`);
+      shelljs.exec(`mofancmds ubmerge -s ${stdout}`, { async: false });
     } else {
       shelljs.exit(1);
     }
