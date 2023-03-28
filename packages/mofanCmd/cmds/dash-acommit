@@ -116,10 +116,10 @@ program
           return ask(targetBranchQuestions).then(({ gitBranchs }) => {
             console.log(
               "🚀 ~ file: dash-acommit:120 ~ returnask ~ `mofancmds ubmerge -s ${stdout} -t ${gitBranchs.join()}`:",
-              `mofancmds ubmerge -s ${stdout} -t ${gitBranchs.join(" ")}`
+              `mofancmds ubmerge -s ${stdout} -t ${gitBranchs}`
             );
             shelljs.exec(
-              `mofancmds ubmerge -s ${stdout} -t ${gitBranchs.join(" ")}`
+              `mofancmds ubmerge -s ${stdout} -t ${gitBranchs}`
             );
           });
         } else {
