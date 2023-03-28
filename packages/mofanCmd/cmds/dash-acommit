@@ -2,6 +2,7 @@
 const program = require("commander");
 const inquirer = require("inquirer");
 const shelljs = require("../utils/shelljsUtil");
+const { exec } = require("child_process");
 
 const ask = inquirer.prompt;
 const typeQuestions = [
@@ -60,7 +61,13 @@ const updateCodeFn = () => {
     "🚀 ~ file: dash-acommit:61 ~ updateCode ~ updateCodeQuestion:",
     updateCodeQuestion
   );
-}; 
+  exec("git branch --show-current", (err, stdout, stderr) => {
+    console.log("🚀 ~ file: dash-acommit:66 ~ exec ~ stdout:", stdout);
+    if (err) {
+      // handle your error
+    }
+  });
+};
 
 program
   .action(function () {
