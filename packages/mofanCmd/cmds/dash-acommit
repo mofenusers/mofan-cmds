@@ -57,7 +57,7 @@ const updateCodeQuestion = [
 
 const updateCodeFn = () => {
   const { code, stdout, stderr } = shelljs.exec(`git branch --show-current`);
-  const currentBranch = stdout.replace(" ", "");
+  const currentBranch = stdout.replace("\n", "");
   console.log(
     "🚀 ~ file: dash-acommit:62 ~ updateCodeFn ~ stdout:",
     currentBranch
