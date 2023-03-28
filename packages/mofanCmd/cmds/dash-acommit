@@ -73,13 +73,13 @@ const updateCodeFn = () => {
       name: "updateCodeConfirm",
       message: `你当前在${stdout}分支，确认更新代码至环境分支吗？`,
     },
-  ]).then(async ({ updateCodeConfirm }) => {
+  ]).then(({ updateCodeConfirm }) => {
     if (updateCodeConfirm) {
       const {
         code,
         stdout: ubmergeStdout,
         stderr,
-      } = await shelljs.exec(`mofancmds ubmerge -s ${stdout}`, { async: false });
+      } = shelljs.exec(`mofancmds ubmerge -s ${stdout}`, { async: false });
       console.log(
         "🚀 ~ file: dash-acommit:82 ~ ]).then ~ ubmergeStdout:",
         ubmergeStdout

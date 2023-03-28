@@ -55,6 +55,11 @@ program
         run(targetBranchs, sourceBranch);
       } else {
         inquirer.prompt(questions).then((answer) => {
+          process.stdin.resume();
+          process.stdin.setEncoding("utf-8");
+          process.stdin.on("data", function (data) {
+            process.stdout.write(data);
+          });
           const { gitBranchs } = answer;
           console.log(
             "🚀 ~ file: dash-ubmerge:73 ~ inquirer.prompt ~ gitBranchs:",
@@ -64,7 +69,7 @@ program
         });
       }
     };
-    
+
     dealwithBranchs(targets, source);
   })
   .parse(process.argv);
