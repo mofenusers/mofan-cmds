@@ -3,6 +3,7 @@ const program = require("commander");
 const inquirer = require("inquirer");
 const shelljs = require("../utils/shelljsUtil");
 
+const ask = inquirer.prompt;
 const typeQuestions = [
   {
     type: "list",
@@ -46,6 +47,21 @@ const descQuestion = [
   },
 ];
 
+const updateCodeQuestion = [
+  {
+    type: "confirm",
+    name: "updateCode",
+    message: "是否更新代码至远程环境分支",
+  },
+];
+
+const updateCodeFn = () => {
+  console.log(
+    "🚀 ~ file: dash-acommit:61 ~ updateCode ~ updateCodeQuestion:",
+    updateCodeQuestion
+  );
+};
+
 program
   .action(function () {
     const run = (commitType, desc) => {
@@ -61,13 +77,20 @@ program
         );
         shelljs.exit(1);
       } else {
+        shelljs.exec(`git push`);
         shelljs.exec(`git status`);
       }
     };
 
-    inquirer.prompt(typeQuestions).then((answer) => {
-      const { commitType } = answer;
-      inquirer.prompt(descQuestion).then(({ desc }) => run(commitType, desc));
-    });
+    ask(typeQuestions)
+      .then((answer) => {
+        const { commitType } = answer;
+        ask(descQuestion).then(({ desc }) => run(commitType, desc));
+      })
+      .then(() => {
+        ask(updateCodeQuestion).then(
+          ({ updateCode }) => updateCode && updateCodeFn()
+        );
+      });
   })
   .parse(process.argv);
