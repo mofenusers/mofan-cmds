@@ -35,6 +35,14 @@ const typeQuestions = [
         name: "build",
         value: "build",
       },
+      {
+        name: "revert",
+        value: "revert",
+      },
+      {
+        name: "refactor",
+        value: "refactor",
+      },
     ],
   },
 ];
@@ -58,14 +66,6 @@ const updateCodeQuestion = [
 const updateCodeFn = () => {
   const { code, stdout, stderr } = shelljs.exec(`git branch --show-current`);
   const currentBranch = stdout.replace("\n", "");
-  console.log(
-    "🚀 ~ file: dash-acommit:62 ~ updateCodeFn ~ stdout:",
-    currentBranch
-  );
-  console.log(
-    "🚀 ~ file: dash-acommit:66 ~ exec ~ currentBranch:",
-    currentBranch
-  );
   if (code !== 0) {
     // handle your error
     console.error(
@@ -103,7 +103,7 @@ program
         );
         shelljs.exit(1);
       } else {
-        // shelljs.exec(`git push`);
+        shelljs.exec(`git push`);
         shelljs.exec(`git status`);
       }
     };
@@ -121,10 +121,6 @@ program
       .then(({ updateCodeConfirm, currentBranch }) => {
         if (updateCodeConfirm) {
           return ask(targetBranchQuestions).then(({ gitBranchs }) => {
-            console.log(
-              "🚀 ~ file: dash-acommit:120 ~ returnask ~ `mofancmds ubmerge -s ${stdout} -t ${gitBranchs.join()}`:",
-              `mofancmds ubmerge -s ${currentBranch} -t ${gitBranchs}`
-            );
             shelljs.exec(
               `mofancmds ubmerge -s ${currentBranch} -t ${gitBranchs.join(" ")}`
             );

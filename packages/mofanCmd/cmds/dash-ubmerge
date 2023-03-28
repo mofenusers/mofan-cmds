@@ -11,18 +11,13 @@ program
   .option("-s, --source <source>", "source branch")
   .option("-t, --targets [targets...]", "target branch")
   .action(function ({ source, targets }, args) {
-    console.log(
-      "🚀 ~ file: dash-ubmerge:14 ~ source, targets:",
-      source,
-      targets
-    );
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
         const { code, stderr } = shelljs.exec(
           `mofancmds autoMerge ${branch} ${sourceBranch}`
         );
         if (code !== 0) {
-          console.log(
+          console.error(
             "🚀 ~ file: dash-updateCode:43 ~ gitBranchs.forEach ~ error",
             stderr
           );
@@ -40,10 +35,6 @@ program
       } else {
         ask(targetBranchQuestions).then((answer) => {
           const { gitBranchs } = answer;
-          console.log(
-            "🚀 ~ file: dash-ubmerge:73 ~ inquirer.prompt ~ gitBranchs:",
-            gitBranchs
-          );
           run(gitBranchs, sourceBranch);
         });
       }

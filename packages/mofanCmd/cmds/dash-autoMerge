@@ -5,7 +5,7 @@ const shelljs = require("../utils/shelljsUtil");
 program
   .command("autoMerge <target> <source>")
   .action(function (target, source) {
-    console.log(process.cwd());
+    console.log("current path", process.cwd());
 
     shelljs.exec(`git fetch`);
     shelljs.exec(`git checkout ${source}`);
