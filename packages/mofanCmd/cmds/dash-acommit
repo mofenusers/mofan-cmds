@@ -117,7 +117,7 @@ program
             code,
             stdout: ubmergeStdout,
             stderr,
-          } = shelljs.exec(`mofancmds ubmerge -s ${stdout}`);
+          } = shelljs.exec(`mofancmds ubmerge -s ${stdout} < /dev/null`);
           console.log(
             "🚀 ~ file: dash-acommit:82 ~ ]).then ~ ubmergeStdout:",
             ubmergeStdout
