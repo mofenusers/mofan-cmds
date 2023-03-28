@@ -67,28 +67,13 @@ const updateCodeFn = () => {
     );
     shelljs.exit(1);
   }
-  ask([
+  return ask([
     {
       type: "confirm",
       name: "updateCodeConfirm",
       message: `你当前在${stdout}分支，确认更新代码至环境分支吗？`,
     },
-  ]).then(({ updateCodeConfirm }) => {
-    if (updateCodeConfirm) {
-      const {
-        code,
-        stdout: ubmergeStdout,
-        stderr,
-      } = shelljs.exec(`mofancmds ubmerge -s ${stdout}`, { async: false });
-      console.log(
-        "🚀 ~ file: dash-acommit:82 ~ ]).then ~ ubmergeStdout:",
-        ubmergeStdout
-      );
-      console.log("🚀 ~ file: dash-acommit:81 ~ ]).then ~ code:", code);
-    }
-
-    shelljs.exit(1);
-  });
+  ]);
 };
 
 program
@@ -120,6 +105,22 @@ program
         return ask(updateCodeQuestion).then(
           ({ updateCode }) => updateCode && updateCodeFn()
         );
+      })
+      .then(({ updateCodeConfirm }) => {
+        if (updateCodeConfirm) {
+          const {
+            code,
+            stdout: ubmergeStdout,
+            stderr,
+          } = shelljs.exec(`mofancmds ubmerge -s ${stdout}`, { async: false });
+          console.log(
+            "🚀 ~ file: dash-acommit:82 ~ ]).then ~ ubmergeStdout:",
+            ubmergeStdout
+          );
+          console.log("🚀 ~ file: dash-acommit:81 ~ ]).then ~ code:", code);
+        }
+
+        shelljs.exit(0);
       });
   })
   .parse(process.argv);
