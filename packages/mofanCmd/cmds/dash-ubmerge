@@ -54,12 +54,12 @@ program
       if (targetBranchs && targetBranchs.length) {
         run(targetBranchs, sourceBranch);
       } else {
+        process.stdin.resume();
+        process.stdin.setEncoding("utf-8");
+        process.stdin.on("data", function (data) {
+          process.stdout.write(data);
+        });
         inquirer.prompt(questions).then((answer) => {
-          process.stdin.resume();
-          process.stdin.setEncoding("utf-8");
-          process.stdin.on("data", function (data) {
-            process.stdout.write(data);
-          });
           const { gitBranchs } = answer;
           console.log(
             "🚀 ~ file: dash-ubmerge:73 ~ inquirer.prompt ~ gitBranchs:",
