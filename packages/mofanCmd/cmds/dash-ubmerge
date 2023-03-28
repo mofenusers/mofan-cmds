@@ -61,9 +61,7 @@ program
             gitBranchs
           );
           run(gitBranchs, sourceBranch);
-          process.stdin.resume();
         });
-        process.stdin.pause();
       }
     };
 
