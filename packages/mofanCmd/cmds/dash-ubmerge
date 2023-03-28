@@ -11,6 +11,11 @@ program
   .option("-s, --source <source>", "source branch")
   .option("-t, --targets [targets...]", "target branch")
   .action(function ({ source, targets }, args) {
+    console.log(
+      "🚀 ~ file: dash-ubmerge:14 ~ source, targets:",
+      source,
+      targets
+    );
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
         const { code, stderr } = shelljs.exec(
