@@ -59,26 +59,24 @@ const updateCodeQuestion = [
 const updateCodeFn = () => {
   const { code, stdout, stderr } = shelljs.exec(`git branch --show-current`);
   console.log("🚀 ~ file: dash-acommit:62 ~ updateCodeFn ~ stdout:", stdout);
-  // exec("git branch --show-current", (err, stdout, stderr) => {
-  //   console.log("🚀 ~ file: dash-acommit:66 ~ exec ~ stdout:", stdout);
-  //   if (err) {
-  //     // handle your error
-  //     shelljs.exit(1);
-  //   }
-  //   ask([
-  //     {
-  //       type: "confirm",
-  //       name: "updateCodeConfirm",
-  //       message: `你当前在${stdout}分支，确认更新代码至环境分支吗？`,
-  //     },
-  //   ]).then(({ updateCodeConfirm }) => {
-  //     if (updateCodeConfirm) {
-  //       shelljs.exec(`mofancmds ubmerge -s ${stdout}`);
-  //     } else {
-  //       shelljs.exit(1);
-  //     }
-  //   });
-  // });
+  console.log("🚀 ~ file: dash-acommit:66 ~ exec ~ stdout:", stdout);
+  if (code !== 0) {
+    // handle your error
+    shelljs.exit(1);
+  }
+  ask([
+    {
+      type: "confirm",
+      name: "updateCodeConfirm",
+      message: `你当前在${stdout}分支，确认更新代码至环境分支吗？`,
+    },
+  ]).then(({ updateCodeConfirm }) => {
+    if (updateCodeConfirm) {
+      shelljs.exec(`mofancmds ubmerge -s ${stdout}`);
+    } else {
+      shelljs.exit(1);
+    }
+  });
 };
 
 program
