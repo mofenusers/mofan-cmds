@@ -85,9 +85,9 @@ const updateCodeFn = () => {
         ubmergeStdout
       );
       console.log("🚀 ~ file: dash-acommit:81 ~ ]).then ~ code:", code);
-    } else {
-      shelljs.exit(1);
     }
+
+    shelljs.exit(1);
   });
 };
 
