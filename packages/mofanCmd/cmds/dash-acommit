@@ -105,7 +105,7 @@ program
         return ask(descQuestion).then(({ desc }) => run(commitType, desc));
       })
       .then(() => {
-        ask(updateCodeQuestion).then(
+        return ask(updateCodeQuestion).then(
           ({ updateCode }) => updateCode && updateCodeFn()
         );
       });
