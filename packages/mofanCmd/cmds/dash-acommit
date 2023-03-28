@@ -85,7 +85,7 @@ program
     ask(typeQuestions)
       .then((answer) => {
         const { commitType } = answer;
-        ask(descQuestion).then(({ desc }) => run(commitType, desc));
+        return ask(descQuestion).then(({ desc }) => run(commitType, desc));
       })
       .then(() => {
         ask(updateCodeQuestion).then(
