@@ -73,7 +73,12 @@ const updateCodeFn = () => {
       name: "updateCodeConfirm",
       message: `你当前在${stdout}分支，确认更新代码至环境分支吗？`,
     },
-  ]);
+  ]).then(({ updateCodeConfirm }) => {
+    return {
+      updateCodeConfirm,
+      stdout,
+    };
+  });
 };
 
 program
@@ -106,7 +111,7 @@ program
           ({ updateCode }) => updateCode && updateCodeFn()
         );
       })
-      .then(({ updateCodeConfirm }) => {
+      .then(({ updateCodeConfirm, stdout }) => {
         if (updateCodeConfirm) {
           const {
             code,
