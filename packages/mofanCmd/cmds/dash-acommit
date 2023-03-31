@@ -103,6 +103,7 @@ program
         );
         shelljs.exit(1);
       } else {
+        shelljs.exec(`git pull`);
         shelljs.exec(`git push`);
         shelljs.exec(`git status`);
       }
