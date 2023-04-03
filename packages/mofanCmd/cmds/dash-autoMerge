@@ -12,10 +12,6 @@ program
     shelljs.exec(`git pull`);
     shelljs.exec(`git checkout ${target}`);
     shelljs.exec(`git pull`);
-    const { code, stderr } = shelljs.exec(`git merge ${source}`);
-    if (code !== 0) {
-      console.error("🚀 ~ file: dash-autoMerge:17 ~ stderr", stderr);
-      shelljs.exit(1);
-    }
+    shelljs.exec(`git merge ${source} --log`);
   })
   .parse(process.argv);

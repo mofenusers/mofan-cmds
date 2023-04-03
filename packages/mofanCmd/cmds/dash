@@ -34,7 +34,7 @@ program
     console.log("  $ deploy exec async");
   });
 
-program.command("ubmerge", "update branch by merge");
+program.command("batchmerge", "batch merge and push");
 program.command("acommit", "auto commit");
 program.command("autoMerge", "auto mergeBranch git cmd");
 program.command("pullGithubCode", "auto pull github code and open with vscode");

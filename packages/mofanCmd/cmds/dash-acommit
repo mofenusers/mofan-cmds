@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 const program = require("commander");
 const shelljs = require("../utils/shelljsUtil");
-const { targetBranchQuestions } = require("../utils/config");
 const { ask } = require("../utils/inquireUtil");
+const { askFortargetBranchs } = require("../utils/config");
 
 const typeQuestions = [
   {
@@ -55,34 +55,27 @@ const descQuestion = [
   },
 ];
 
-const updateCodeQuestion = [
+const batchMergeQuestion = [
   {
     type: "confirm",
-    name: "updateCode",
+    name: "batchMerge",
     message: "是否更新代码至远程环境分支",
   },
 ];
 
-const updateCodeFn = () => {
-  const { code, stdout, stderr } = shelljs.exec(`git branch --show-current`);
+const batchMergeFn = () => {
+  const { stdout } = shelljs.exec(`git branch --show-current`);
   const currentBranch = stdout.replace("\n", "");
-  if (code !== 0) {
-    // handle your error
-    console.error(
-      "🚀 ~ file: dash-updateCode:43 ~ gitBranchs.forEach ~ error",
-      stderr
-    );
-    shelljs.exit(1);
-  }
+
   return ask([
     {
       type: "confirm",
-      name: "updateCodeConfirm",
+      name: "batchMergeConfirm",
       message: `你当前在${currentBranch}分支，确认更新代码至环境分支吗？`,
     },
-  ]).then(({ updateCodeConfirm }) => {
+  ]).then(({ batchMergeConfirm }) => {
     return {
-      updateCodeConfirm,
+      batchMergeConfirm,
       currentBranch,
     };
   });
@@ -92,21 +85,11 @@ program
   .action(function () {
     const run = (commitType, desc) => {
       shelljs.exec(`git add .`);
-      const { code, stderr } = shelljs.exec(
-        `git commit -m "${commitType}: ${desc}"`
-      );
+      shelljs.exec(`git commit -m "${commitType}: ${desc}"`);
 
-      if (code !== 0) {
-        console.error(
-          "🚀 ~ file: dash-updateCode:43 ~ gitBranchs.forEach ~ error",
-          stderr
-        );
-        shelljs.exit(1);
-      } else {
-        shelljs.exec(`git pull`);
-        shelljs.exec(`git push`);
-        shelljs.exec(`git status`);
-      }
+      shelljs.exec(`git pull`);
+      shelljs.exec(`git push`);
+      shelljs.exec(`git status`);
     };
 
     ask(typeQuestions)
@@ -115,15 +98,17 @@ program
         return ask(descQuestion).then(({ desc }) => run(commitType, desc));
       })
       .then(() => {
-        return ask(updateCodeQuestion).then(
-          ({ updateCode }) => updateCode && updateCodeFn()
+        return ask(batchMergeQuestion).then(
+          ({ batchMerge }) => batchMerge && batchMergeFn()
         );
       })
-      .then(({ updateCodeConfirm, currentBranch }) => {
-        if (updateCodeConfirm) {
-          return ask(targetBranchQuestions).then(({ gitBranchs }) => {
+      .then(({ batchMergeConfirm, currentBranch }) => {
+        if (batchMergeConfirm) {
+          return askFortargetBranchs().then(({ gitBranchs }) => {
             shelljs.exec(
-              `mofancmds ubmerge -s ${currentBranch} -t ${gitBranchs.join(" ")}`
+              `mofancmds batchmerge -s ${currentBranch} -t ${gitBranchs.join(
+                " "
+              )}`
             );
           });
         } else {

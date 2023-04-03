@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 const program = require("commander");
 const shelljs = require("../utils/shelljsUtil");
-const { targetBranchQuestions } = require("../utils/config");
-const { ask } = require("../utils/inquireUtil");
+const { askFortargetBranchs } = require("../utils/config");
 
 // const jenkinsUrl = (app, env) =>
 //   `http://192.168.0.163:8080/job/tenant-fe/job/${env}/job/${app}/build?token=jenkins-szhtxx-token `;
@@ -13,18 +12,9 @@ program
   .action(function ({ source, targets }, args) {
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
-        const { code, stderr } = shelljs.exec(
-          `mofancmds autoMerge ${branch} ${sourceBranch}`
-        );
-        if (code !== 0) {
-          console.error(
-            "🚀 ~ file: dash-updateCode:43 ~ gitBranchs.forEach ~ error",
-            stderr
-          );
-          shelljs.exit(1);
-        } else {
-          shelljs.exec(`git push`);
-        }
+        shelljs.exec(`mofancmds autoMerge ${branch} ${sourceBranch}`);
+
+        shelljs.exec(`git push`);
       });
       shelljs.exec(`git checkout ${sourceBranch}`);
     };
@@ -33,7 +23,7 @@ program
       if (targetBranchs && targetBranchs.length) {
         run(targetBranchs, sourceBranch);
       } else {
-        ask(targetBranchQuestions).then((answer) => {
+        askFortargetBranchs().then((answer) => {
           const { gitBranchs } = answer;
           run(gitBranchs, sourceBranch);
         });
