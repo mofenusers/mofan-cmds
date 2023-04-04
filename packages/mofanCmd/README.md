@@ -108,3 +108,5 @@ mofancmds batchcommand -m command
 ### 评估频繁执行shell命令切换子进程是否会引起性能问题
 
 ### acommit增加交互式触发jekins部署
+
+### 载入内部配置
