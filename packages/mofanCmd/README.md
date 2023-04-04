@@ -60,7 +60,7 @@ mofancmds acommit
 
 ### 建议
 
-1、命令集中没有执行 eslint 和 format，如果需要可以配置 precommit 钩子，命令集中的 commit 命令会触发
+1、命令集中没有执行 eslint 和 format，如果需要可以配置 precommit 等钩子，命令集中的 commit 命令会触发
 
 #### 内部命令集
 
@@ -72,3 +72,32 @@ git pull
 git push
 mofancmds batchmerge -s source
 ```
+
+
+## batchcommand
+
+### 介绍
+
+批量对当前目录下的所有内部具有package.json文件的文件夹执行指令，只显示子目录，不显示孙目录
+
+### 示例
+
+```javascript
+mofancmds batchcommand -m command
+
+```
+
+### 注意
+
+1、执行删除、撤销（rm/git checkout <file>）等危险操作时，最好先使用git status等命令确认一下目标文件夹的状态
+2、操作完以后，一定要去对应的文件夹确认一下。
+
+
+
+## todo
+
+### batchcommand 增加二次确认
+
+### 评估频繁执行shell命令切换子进程是否会引起性能问题
+
+### acommit增加交互式触发jekins部署

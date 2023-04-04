@@ -8,7 +8,7 @@ program.option("-v", "version").action(function (env, options) {
 });
 
 program.command(
-  "batchCommand",
+  "batchcommand",
   "batch exec command in selected dirs in current path"
 );
 program.command("batchmerge", "batch merge and push");

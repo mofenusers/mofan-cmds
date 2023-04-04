@@ -17,8 +17,6 @@ const getDirs = () =>
         );
       });
 
-      console.log("Directories:");
-      console.log(dirs);
       rosolve(dirs);
     });
   });
