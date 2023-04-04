@@ -10,7 +10,7 @@ if (!shelljs.which("git")) {
 
 const exec = (command) => {
   const res = shelljs.originalExec(command);
-  if (res.code !== 0) {
+  if (res && res.code !== 0) {
     // shelljs.echo("Sorry, ", res.stderr);
     shelljs.exit(1);
   } else {

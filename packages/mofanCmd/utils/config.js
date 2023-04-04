@@ -1,5 +1,6 @@
 const { ask } = require("./inquireUtil");
 const shelljs = require("./shelljsUtil");
+const getApplications = require("./getAllApplication");
 
 const targetBranchsQuestions = {
   type: "checkbox",
@@ -23,7 +24,23 @@ const askFortargetBranchs = () => {
   return ask([{ ...targetBranchsQuestions, choices }]);
 };
 
+const dirsQuestions = {
+  type: "checkbox",
+  name: "targetDirs",
+  message: "请选择想要更新的目录",
+};
+
+const askForTargetDirs = () => {
+  return getApplications()
+    .then((dirs) =>
+      ask([
+        { ...dirsQuestions, choices: dirs.map((i) => ({ name: i, value: i })) },
+      ])
+    )
+    ;
+};
+
 module.exports = {
-  targetBranchsQuestions,
   askFortargetBranchs,
+  askForTargetDirs,
 };

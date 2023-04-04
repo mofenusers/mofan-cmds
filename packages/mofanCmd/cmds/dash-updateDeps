@@ -1,0 +1,43 @@
+#!/usr/bin/env node
+const program = require("commander");
+const shelljs = require("../utils/shelljsUtil");
+const { askForTargetDirs } = require("../utils/config");
+const { exec } = require("child_process");
+
+program
+  .option("-d, --deps [deps...]", "source branch")
+  .action(function ({ deps }) {
+    const run = (dir, deps) => {
+      console.log(
+        "🚀 ~ file: dash-updateDeps:29 ~ run ~ dir, deps:",
+        dir,
+        deps
+      );
+      shelljs.exec(`cd ${dir}`);
+      console.log(
+        "🚀 ~ file: dash-updateDeps:36 ~ run ~ cd ${dir}:",
+        `cd ${dir}`
+      );
+      deps.forEach((dep) => {
+        // const [name, version] = dep.split("@");
+
+        console.log(
+          "🚀 ~ file: dash-updateDeps:26 ~ exec ~ `yarn upgrade ${dep}`:",
+          `yarn upgrade ${dep}`
+        );
+        exec(`yarn add ${dep}`, (err, stdout, stderr) => {
+          if (err) {
+            console.error(`exec error: ${err}`);
+            return;
+          }
+          shelljs.echo(`${dir} output: ${stdout}`);
+        });
+      });
+      shelljs.exec(`cd ..`);
+    };
+
+    askForTargetDirs().then(({ targetDirs }) => {
+      targetDirs.forEach((dir) => run(dir, deps));
+    });
+  })
+  .parse(process.argv);

@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+const program = require("commander");
+const shelljs = require("../utils/shelljsUtil");
+const { askForTargetDirs } = require("../utils/config");
+const { exec } = require("child_process");
+
+program
+  .option(
+    "-m, --commandtoexec <commandtoexec>",
+    "commandtoexec to exec in dirs"
+  )
+  .action(function (params) {
+    const { commandtoexec } = params;
+    const run = (dir, commandtoexec) => {
+      shelljs.cd(dir);
+      exec(commandtoexec, (err, stdout) => {
+        if (err) {
+          console.error(`exec error: ${err}`);
+          return;
+        }
+        shelljs.echo(`${dir} output: ${stdout}`);
+      });
+      shelljs.cd(`..`);
+    };
+
+    askForTargetDirs().then(({ targetDirs }) => {
+      targetDirs.forEach((dir) => run(dir, commandtoexec));
+    });
+  })
+  .parse(process.argv);
