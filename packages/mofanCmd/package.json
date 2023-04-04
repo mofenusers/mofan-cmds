@@ -2,7 +2,15 @@
   "name": "mofancmds",
   "version": "1.1.4",
   "description": "",
-  "keywords": [],
+  "keywords": [
+    "commander",
+    "git",
+    "commit",
+    "inquirer",
+    "shelljs",
+    "shell",
+    "batch"
+  ],
   "author": "",
   "license": "ISC",
   "scripts": {
