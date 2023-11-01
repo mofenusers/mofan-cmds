@@ -14,7 +14,7 @@ program
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
         console.log("🚀 ~ file: dash-batchmerge:21 ~ branchs.forEach ~ branch:", branch)
-        exec(`mofancmds autoMerge ${branch} ${sourceBranch}; git push`, (err) => {
+        exec(`mofancmds autoMerge ${branch} ${sourceBranch}`, (err) => {
           console.log("🚀 ~ file: dash-batchmerge:19 ~ exec ~ err:", err)
         });
       });

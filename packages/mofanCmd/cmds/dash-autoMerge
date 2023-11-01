@@ -13,5 +13,6 @@ program
     shelljs.exec(`git checkout ${target}`);
     shelljs.exec(`git pull`);
     shelljs.exec(`git merge ${source} --log`);
+    shelljs.exec(`git push`);
   })
   .parse(process.argv);
