@@ -11,9 +11,9 @@ program
   .option("-s, --source <source>", "source branch")
   .option("-t, --targets [targets...]", "target branch")
   .action(function ({ source, targets }, args) {
-    console.log("🚀 ~ file: dash-batchmerge:14 ~ source, targets:", source, targets)
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
+        console.log("🚀 ~ file: dash-batchmerge:21 ~ branchs.forEach ~ branch:", branch)
         spawn(`mofancmds autoMerge ${branch} ${sourceBranch}; git push`, (err) => {
           console.log("🚀 ~ file: dash-batchmerge:19 ~ spawn ~ err:", err)
         });
