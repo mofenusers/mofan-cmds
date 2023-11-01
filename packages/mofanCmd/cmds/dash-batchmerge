@@ -2,6 +2,7 @@
 const program = require("commander");
 const shelljs = require("../utils/shelljsUtil");
 const { askFortargetBranchs } = require("../utils/config");
+const { spawn } = require("child_process");
 
 // const jenkinsUrl = (app, env) =>
 //   `http://192.168.0.163:8080/job/tenant-fe/job/${env}/job/${app}/build?token=jenkins-szhtxx-token `;
@@ -10,11 +11,10 @@ program
   .option("-s, --source <source>", "source branch")
   .option("-t, --targets [targets...]", "target branch")
   .action(function ({ source, targets }, args) {
+    console.log("🚀 ~ file: dash-batchmerge:14 ~ source, targets:", source, targets)
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
-        shelljs.exec(`mofancmds autoMerge ${branch} ${sourceBranch}`);
-
-        shelljs.exec(`git push`);
+        spawn(`mofancmds autoMerge ${branch} ${sourceBranch}; git push`);
       });
       shelljs.exec(`git checkout ${sourceBranch}`);
     };

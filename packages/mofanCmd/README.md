@@ -20,7 +20,7 @@ mofancmds -v
 
 ### 介绍
 
-批量合并（merge）source 分支到目标分支，当你的项目没有 devops 时的轻量方案，可以缩短你deploy的操作路径。
+批量合并（merge）source 分支到目标分支，当你的项目没有 devops 时的轻量方案，可以缩短你 deploy 的操作路径。
 
 ### 示例
 
@@ -66,8 +66,8 @@ mofancmds acommit
 ### 建议
 
 - 命令集中没有执行 eslint 和 format，如果需要可以配置 precommit 等钩子，命令集中的 commit 命令会触发
-- Angular commit message规范 [https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit](https://)
-  
+- Angular commit message 规范 [https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit](https://)
+
   <br/>
 
 ### 内部命令集
@@ -77,8 +77,8 @@ git add .
 git commit -m "type: desc"
 git checkout target
 git pull
-git push
 mofancmds batchmerge -s source
+git push
 ```
 
 <br/>
@@ -87,7 +87,7 @@ mofancmds batchmerge -s source
 
 ### 介绍
 
-批量对当前目录下的所有内部具有package.json文件的文件夹执行指令，只显示子目录，不显示孙目录
+批量对当前目录下的所有内部具有 package.json 文件的文件夹执行指令，只显示子目录，不显示孙目录
 
 ### 示例
 
@@ -98,15 +98,15 @@ mofancmds batchcommand -m command
 
 ### 注意
 
-- 执行删除、撤销（rm/git checkout <file>）等危险操作时，最好先使用git status等命令确认一下目标文件夹的状态
+- 执行删除、撤销（rm/git checkout <file>）等危险操作时，最好先使用 git status 等命令确认一下目标文件夹的状态
 - 操作完以后，一定要去对应的文件夹确认一下。
 
 ## todo
 
 ### batchcommand 增加二次确认
 
-### 评估频繁执行shell命令切换子进程是否会引起性能问题
+### 评估频繁执行 shell 命令切换子进程是否会引起性能问题
 
-### acommit增加交互式触发jekins部署
+### acommit 增加交互式触发 jekins 部署
 
 ### 载入内部配置
