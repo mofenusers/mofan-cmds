@@ -20,7 +20,7 @@ program
           cd ..
           `
           , (err) => {
-            console.log("🚀 ~ file: dash-batchmerge:19 ~ spawn ~ err:", err)
+            console.log("🚀 ~ file: dash-batchmerge:19 ~ spawn ~ err:222", err)
           });
       });
       shelljs.exec(`git checkout ${sourceBranch}`);
