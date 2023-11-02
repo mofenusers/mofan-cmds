@@ -13,11 +13,11 @@ program
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
         const validateBranchFolderName = branch.replace("/", "-")
-        const res = shelljs.exec(`git worktree add ${validateBranchFolderName} -b ${branch}-merge-${sourceBranch} &amp;&amp
-        cd ${validateBranchFolderName}  &amp;&amp
-        process.cwd()  &amp;&amp
-        mofancmds autoMerge ${branch} ${sourceBranch}  &amp;&amp
-        git push  &amp;&amp
+        const res = shelljs.exec(`git worktree add ${validateBranchFolderName} -b ${branch}-merge-${sourceBranch} &amp;&amp;
+        cd ${validateBranchFolderName}  &amp;&amp;
+        process.cwd()  &amp;&amp;
+        mofancmds autoMerge ${branch} ${sourceBranch}  &amp;&amp;
+        git push  &amp;&amp;
         cd ..`
         );
         if (res.code !== 0) {
