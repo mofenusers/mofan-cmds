@@ -13,15 +13,15 @@ program
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
         const validateBranchFolderName = branch.replace("/", "-")
-        const res = shelljs.exec(`git worktree add ${validateBranchFolderName}Merge -b ${sourceBranch} &amp;&amp
-        cd ${validateBranchFolderName}Merge  &amp;&amp
+        const res = shelljs.exec(`git worktree add ${validateBranchFolderName} -b ${branch}-merge-${sourceBranch} &amp;&amp
+        cd ${validateBranchFolderName}  &amp;&amp
         process.cwd()  &amp;&amp
         mofancmds autoMerge ${branch} ${sourceBranch}  &amp;&amp
         git push  &amp;&amp
         cd ..`
         );
         if (res.code !== 0) {
-          shelljs.exec(`git worktree remove ${validateBranchFolderName}Merge`)
+          shelljs.exec(`git worktree remove ${validateBranchFolderName}`)
         }
       });
     };
