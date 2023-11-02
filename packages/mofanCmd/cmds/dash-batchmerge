@@ -13,15 +13,11 @@ program
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
         const validateBranchFolderName = branch.replace("/", "-")
-        shelljs.exec(`git worktree add ${validateBranchFolderName}Merge -b ${branch}-merge-${sourceBranch}
+        const res = shelljs.exec(`git worktree add ${validateBranchFolderName}Merge -b ${branch}-merge-${sourceBranch}
           cd ${validateBranchFolderName}Merge
-          mofancmds autoMerge ${branch} ${sourceBranch}
-          git push
-          cd ..`
-          , (err) => {
-            shelljs.exec(`git worktree add ${validateBranchFolderName}Merge`)
-            console.log("🚀 ~ file: dash-batchmerge:19 ~ spawn ~ err:222", err)
-          });
+          `
+        );
+        console.log("🚀 ~ file: dash-batchmerge:21 ~ branchs.forEach ~ res:", res)
       });
       shelljs.exec(`git checkout ${sourceBranch}`);
     };
