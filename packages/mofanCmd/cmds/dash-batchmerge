@@ -17,9 +17,9 @@ program
           cd ${validateBranchFolderName}Merge
           mofancmds autoMerge ${branch} ${sourceBranch}
           git push
-          cd ..
-          `
+          cd ..`
           , (err) => {
+            shelljs.exec(`git worktree add ${validateBranchFolderName}Merge`)
             console.log("🚀 ~ file: dash-batchmerge:19 ~ spawn ~ err:222", err)
           });
       });
