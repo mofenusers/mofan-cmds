@@ -2,7 +2,7 @@
 const program = require("commander");
 const shelljs = require("../utils/shelljsUtil");
 const { askFortargetBranchs } = require("../utils/config");
-const { spawn } = require("child_process");
+const { exec } = require("child_process");
 
 // const jenkinsUrl = (app, env) =>
 //   `http://192.168.0.163:8080/job/tenant-fe/job/${env}/job/${app}/build?token=jenkins-szhtxx-token `;
@@ -13,12 +13,13 @@ program
   .action(function ({ source, targets }, args) {
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
-        spawn(
+        exec(
           `
           git worktree add ${branch}Merge${sourceBranch}Folder
           cd ${branch}Merge${sourceBranch}Folder
           mofancmds autoMerge ${branch} ${sourceBranch}
           git push
+          cd ..
           `
           , (err) => {
             console.log("🚀 ~ file: dash-batchmerge:19 ~ spawn ~ err:", err)
