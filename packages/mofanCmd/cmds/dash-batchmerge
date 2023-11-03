@@ -2,7 +2,6 @@
 const program = require("commander");
 const shelljs = require("../utils/shelljsUtil");
 const { askFortargetBranchs } = require("../utils/config");
-const { exec } = require("child_process");
 
 // const jenkinsUrl = (app, env) =>
 //   `http://192.168.0.163:8080/job/tenant-fe/job/${env}/job/${app}/build?token=jenkins-szhtxx-token `;
@@ -13,11 +12,18 @@ program
   .action(function ({ source, targets }, args) {
     const run = (branchs, sourceBranch) => {
       branchs.forEach((branch) => {
-        exec(`mofancmds autoMerge ${branch} ${sourceBranch}`, (err) => {
-          console.log("🚀 ~ file: dash-batchmerge:19 ~ exec ~ err:", err)
-        });
+        // 生成多个子进程执行以下git操作
+        // 1、生成多个worktree
+        // 2、切换到每个worktree
+        // 3、切换到branch
+        // 4、merge sourceBranch
+        // 5、git push
+        // 6、删除worktree
+        const res = shelljs.exec(
+          `git worktree add ${branch} -b ${branch}-merge && cd ${branch} && git checkout ${branch} && git merge ${sourceBranch} && git push && cd.. && git worktree remove ${branch}`
+        );
+        console.log("🚀 ~ file: dash-batchmerge:25 ~ branchs.forEach ~ res:", res)
       });
-      shelljs.exec(`git checkout ${sourceBranch}`);
     };
 
     const dealwithBranchs = (targetBranchs, sourceBranch) => {
