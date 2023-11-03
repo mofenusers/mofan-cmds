@@ -9,9 +9,9 @@ const { askFortargetBranchs } = require("../utils/config");
 
 // 创建一个子进程来执行合并操作
 function executeBranch(branch, source_branch) {
-  console.log("🚀 ~ file: dash-batchmerge:12 ~ executeBranch ~ branch, source_branch:", branch, source_branch)
   return new Promise((resolve, reject) => {
     const child = fork();
+    console.log("🚀 ~ file: dash-batchmerge:15 ~ returnnewPromise ~ child:", child)
     child.on('message', message => {
       if (message.type === 'error') {
         reject(message.error);
