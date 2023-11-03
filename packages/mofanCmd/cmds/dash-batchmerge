@@ -30,8 +30,6 @@ function executeBranch(branch, source_branch) {
       console.log('stderr: ' + child.stderr.data);
     });
 
-    // 输出子进程的当前工作目录
-    console.log(`子进程的当前工作目录: ${child.cwd()}`);
   });
 }
 
