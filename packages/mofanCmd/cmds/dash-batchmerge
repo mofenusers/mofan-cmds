@@ -20,7 +20,7 @@ program
         // 5、git push
         // 6、删除worktree
         const res = shelljs.exec(
-          `git worktree add -b ./${branch} ${branch}-merge && cd ${branch} && git checkout ${branch} && git merge ${sourceBranch} && git push && cd.. && git worktree remove ${branch}`
+          `git worktree add ${branch} -b ${branch}-merge && cd ${branch} && git checkout ${branch} && git merge ${sourceBranch} && git push && cd.. && git worktree remove ${branch}`
         );
         console.log("🚀 ~ file: dash-batchmerge:25 ~ branchs.forEach ~ res:", res)
       });
