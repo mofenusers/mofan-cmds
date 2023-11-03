@@ -12,6 +12,16 @@ function executeBranch(branch, source_branch) {
   return new Promise((resolve, reject) => {
     const child = spawn(`git checkout ${branch} && git merge ${source_branch}`);
 
+    // 输出子进程的输出
+    child.stdout.on('data', (data) => {
+      console.log(`子进程输出: ${data}`);
+    });
+
+    // 子进程错误信息
+    child.stderr.on('data', (data) => {
+      console.error(`子进程错误: ${data}`);
+    });
+
     // 获取命令输出
     child.on('close', (code) => {
       console.log('stdout: ' + child.stdout.data);
