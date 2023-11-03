@@ -3,7 +3,6 @@ const program = require("commander");
 const shelljs = require("../utils/shelljsUtil");
 const { fork } = require('child_process');
 const { askFortargetBranchs } = require("../utils/config");
-const Promise = require('promise');
 
 // const jenkinsUrl = (app, env) =>
 //   `http://192.168.0.163:8080/job/tenant-fe/job/${env}/job/${app}/build?token=jenkins-szhtxx-token `;
@@ -11,8 +10,8 @@ const Promise = require('promise');
 // 创建一个子进程来执行合并操作
 function executeBranch(branch, source_branch) {
   return new Promise((resolve, reject) => {
+    console.log("🚀 ~ file: dash-batchmerge:14 ~ returnnewPromise ~ fork:", fork)
     const child = fork();
-    console.log("🚀 ~ file: dash-batchmerge:15 ~ returnnewPromise ~ child:", child)
     child.on('message', message => {
       if (message.type === 'error') {
         reject(message.error);
