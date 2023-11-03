@@ -10,15 +10,7 @@ const { askFortargetBranchs } = require("../utils/config");
 // 创建一个子进程来执行合并操作
 function executeBranch(branch, source_branch) {
   return new Promise((resolve, reject) => {
-    const child = spawn();
-    child.on('message', message => {
-      if (message.type === 'error') {
-        reject(message.error);
-      } else {
-        resolve(message.result);
-      }
-    });
-    child.send({ command: `git checkout ${branch} && git merge ${source_branch}` });
+    spawn({ command: `git checkout ${branch} && git merge ${source_branch}` });
   });
 }
 
