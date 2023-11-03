@@ -7,7 +7,7 @@ const { askFortargetBranchs } = require("../utils/config");
 // const jenkinsUrl = (app, env) =>
 //   `http://192.168.0.163:8080/job/tenant-fe/job/${env}/job/${app}/build?token=jenkins-szhtxx-token `;
 
-// 创建一个子进程来执行合并操作 && git merge ${source_branch}
+// 创建一个子进程来执行合并操作 && git merge ${source_branch} 
 function executeBranch(branch, source_branch) {
   return new Promise((resolve, reject) => {
     const child = spawn('bash', [`git fetch && git checkout ${branch}`]);
