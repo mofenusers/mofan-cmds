@@ -13,8 +13,13 @@ function executeBranch(branch, source_branch) {
     const child = shelljs.exec(`git checkout ${branch} && git merge ${source_branch} && git push`, {
       cwd: process.cwd(),
     });
-    console.log("🚀 ~ file: dash-batchmerge:15 ~ returnnewPromise ~ child:", child)
 
+    if (child.code === 0) {
+      resolve(child.stdout);
+    } else {
+      reject(child.stderr);
+
+    }
   });
 }
 
