@@ -37,20 +37,6 @@ program
         .catch(error => {
           console.error(`Failed to merge $source_branch into ${branchs}\nError: ${error}`);
         });
-
-      // branchs.forEach((branch) => {
-      //   // 生成多个子进程执行以下git操作
-      //   // 1、生成多个worktree
-      //   // 2、切换到每个worktree
-      //   // 3、切换到branch
-      //   // 4、merge sourceBranch
-      //   // 5、git push
-      //   // 6、删除worktree
-      //   const res = shelljs.exec(
-      //     `git worktree add ${branch} -b ${branch}-merge && cd ${branch} && git checkout ${branch} && git merge ${sourceBranch} && git push && cd.. && git worktree remove ${branch}`
-      //   );
-      //   console.log("🚀 ~ file: dash-batchmerge:25 ~ branchs.forEach ~ res:", res)
-      // });
     };
 
     const dealwithBranchs = (targetBranchs, sourceBranch) => {
