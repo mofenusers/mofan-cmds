@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require("commander");
 const shelljs = require("../utils/shelljsUtil");
-const { fork } = require('child_process');
+const { spawn } = require('child_process');
 const { askFortargetBranchs } = require("../utils/config");
 
 // const jenkinsUrl = (app, env) =>
@@ -11,7 +11,7 @@ const { askFortargetBranchs } = require("../utils/config");
 function executeBranch(branch, source_branch) {
   return new Promise((resolve, reject) => {
     console.log("🚀 ~ file: dash-batchmerge:14 ~ returnnewPromise ~ fork:", fork)
-    const child = fork();
+    const child = spawn();
     child.on('message', message => {
       if (message.type === 'error') {
         reject(message.error);
