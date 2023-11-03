@@ -35,7 +35,7 @@ program
           console.log(`Results: ${results}`);
         })
         .catch(error => {
-          console.error(`Failed to merge $source_branch into ${branchs}\nError: ${error}`);
+          console.error(`Failed to merge ${sourceBranch} into ${branchs}\nError: ${error}`);
         });
     };
 
