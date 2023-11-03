@@ -18,7 +18,7 @@ function executeBranch(branch, source_branch) {
         resolve(message.result);
       }
     });
-    child.send({ command: `git checkout $branch && git merge $source_branch`, branch, source_branch });
+    child.send({ command: `git checkout ${branch} && git merge ${source_branch}` });
   });
 }
 
