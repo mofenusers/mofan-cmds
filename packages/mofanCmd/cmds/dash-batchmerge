@@ -10,27 +10,10 @@ const { askFortargetBranchs } = require("../utils/config");
 // 创建一个子进程来执行合并操作 && git merge ${source_branch} 
 function executeBranch(branch, source_branch) {
   return new Promise((resolve, reject) => {
-    const child = spawn("sh", ["-c", `git checkout ${branch} && git merge ${source_branch} && git push`], {
+    const child = shelljs.exec(`git checkout ${branch} && git merge ${source_branch} && git push`, {
       cwd: process.cwd(),
     });
-
-    process.stdin.pipe(child.stdin);
-
-    // 输出子进程的输出
-    child.stdout.on('data', (data) => {
-      console.log(`子进程输出: ${data}`);
-    });
-
-    // 子进程错误信息
-    child.stderr.on('data', (data) => {
-      console.error(`子进程错误: ${data}`);
-    });
-
-    // 获取命令输出
-    child.on('close', (code) => {
-      console.log('stdout: ' + child.stdout.data);
-      console.log('stderr: ' + child.stderr.data);
-    });
+    console.log("🚀 ~ file: dash-batchmerge:15 ~ returnnewPromise ~ child:", child)
 
   });
 }
