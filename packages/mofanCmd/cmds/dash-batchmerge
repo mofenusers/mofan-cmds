@@ -14,7 +14,7 @@ function executeBranch(branch, source_branch) {
     const child = shelljs.exec(`git worktree add ${branch} && CD ${branch} && git checkout ${branch} && git merge ${source_branch} && git push && cd ..`, {
       cwd: process.cwd(),
     });
-    shelljs.exec(`git worktree remove ${branch}`)
+    shelljs.exec(`ls && sudo git worktree remove ${branch}`)
     if (child.code === 0) {
       resolve(child.stdout);
     } else {
