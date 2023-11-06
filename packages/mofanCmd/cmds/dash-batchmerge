@@ -10,15 +10,14 @@ const { askFortargetBranchs } = require("../utils/config");
 // 创建一个子进程来执行合并操作 && git merge ${source_branch} 
 function executeBranch(branch, source_branch) {
   return new Promise((resolve, reject) => {
-    const child = shelljs.exec(`git checkout ${branch} && git merge ${source_branch} && git push`, {
+    const child = shelljs.exec(`git worktree add ${branch} && CD ${branch} && git checkout ${branch} && git merge ${source_branch} && git push && cd ..`, {
       cwd: process.cwd(),
     });
-
+    shelljs.exec(`git worktree remove -b ${branch}`)
     if (child.code === 0) {
       resolve(child.stdout);
     } else {
       reject(child.stderr);
-
     }
   });
 }
