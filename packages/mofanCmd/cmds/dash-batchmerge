@@ -32,7 +32,7 @@ program
         branchs.map(branch => executeBranch(branch, sourceBranch))
       )
         .then(results => {
-          console.log(`Successfully merged $source_branch into ${branchs}`);
+          console.log(`Successfully merged ${source_branch} into ${branchs}`);
           console.log(`Results: ${results}`);
         })
         .catch(error => {
