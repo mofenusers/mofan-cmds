@@ -2,6 +2,8 @@
 const program = require("commander");
 const shelljs = require("../utils/shelljsUtil");
 
+const disabledSourceBranchs = ["test", "dev", "uat"]
+
 program
   .command("autoMerge <target> <source>")
   .action(function (target, source) {
@@ -12,6 +14,8 @@ program
     shelljs.exec(`git pull`);
     shelljs.exec(`git checkout ${target}`);
     shelljs.exec(`git pull`);
-    shelljs.exec(`git merge ${source} --log`);
+    if (!disabledSourceBranchs.includes(source)) {
+      shelljs.exec(`git merge ${source} --log`);
+    }
   })
   .parse(process.argv);
