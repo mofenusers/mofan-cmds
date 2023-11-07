@@ -29,7 +29,7 @@ program
       Promise.all(
         branchs.map(branch => executeBranch(branch, sourceBranch))
       )
-        .then(results => {
+        .then(() => {
           console.log(`Successfully merged ${source_branch} into ${branchs}`);
         })
         .catch(error => {
