@@ -9,11 +9,10 @@ const { askFortargetBranchs } = require("../utils/config");
 // 多进程执行合并分支操作
 function executeBranch(branch, source_branch) {
   return new Promise((resolve, reject) => {
-    const child = shelljs.exec(`git worktree add ${branch} && cd ${branch} && git checkout ${branch} && git merge ${source_branch} && git push && cd ..`, {
+    const child = shelljs.exec(`git worktree add ${branch} && cd ${branch} && git checkout ${branch} && git merge ${source_branch} && git push && cd .. && git worktree remove ${branch}`, {
       cwd: process.cwd(),
       async: true
     });
-    shelljs.exec(`git worktree remove ${branch}`)
     if (child.code === 0) {
       resolve(child.stdout);
     } else {
