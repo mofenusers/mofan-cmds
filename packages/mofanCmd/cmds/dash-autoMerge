@@ -15,7 +15,7 @@ program
     shelljs.exec(`git checkout ${target}`);
     shelljs.exec(`git pull`);
     if (!disabledSourceBranchs.includes(source)) {
-      shelljs.exec(`git merge ${source} --log`);
+      shelljs.exec(`git merge --no-ff ${source}`);
     }
   })
   .parse(process.argv);
