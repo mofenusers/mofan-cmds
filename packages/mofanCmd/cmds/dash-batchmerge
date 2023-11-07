@@ -32,7 +32,6 @@ program
       )
         .then(results => {
           console.log(`Successfully merged ${source_branch} into ${branchs}`);
-          console.log(`Results: ${results}`);
         })
         .catch(error => {
           console.error(`Failed to merge ${sourceBranch} into ${branchs}\nError: ${error}`);
