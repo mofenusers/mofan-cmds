@@ -11,7 +11,7 @@ const { askFortargetBranchs } = require("../utils/config");
 function executeBranch(branch, source_branch) {
   return new Promise((resolve, reject) => {
     console.log("🚀 ~ file: dash-batchmerge:12 ~ executeBranch ~ branch, source_branch:", branch, source_branch)
-    const child = shelljs.exec(`git worktree add ${branch} && CD ${branch} && git checkout ${branch} && git merge ${source_branch} && git push && cd ..`, {
+    const child = shelljs.exec(`git worktree add ${branch} && cd ${branch} && git checkout ${branch} && git merge ${source_branch} && git push && cd ..`, {
       cwd: process.cwd(),
       async: true
     });
