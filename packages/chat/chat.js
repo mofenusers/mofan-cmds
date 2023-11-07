@@ -16,18 +16,21 @@ const reLogin = () => {
       {
         type: "input",
         name: "loginFailed",
-        message: "loginFailed:reinput new token?",
+        message: "loginFailed:please input new token",
       },
     ])
     .then((res) => ask(res));
 };
+let bot
+
 const ask = async (token) => {
-  let bot
-  try {
-    bot = new chatGPT(token);
-    await bot.waitForReady();
-  } catch (err) {
-    return reLogin();
+  if (!bot) {
+    try {
+      bot = new chatGPT(token);
+      await bot.waitForReady();
+    } catch (err) {
+      return reLogin();
+    }
   }
 
   const answer = async (question) => {
