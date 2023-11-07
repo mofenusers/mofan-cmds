@@ -10,7 +10,6 @@ const { askFortargetBranchs } = require("../utils/config");
 // 创建一个子进程来执行合并操作 && git merge ${source_branch} 
 function executeBranch(branch, source_branch) {
   return new Promise((resolve, reject) => {
-    console.log("🚀 ~ file: dash-batchmerge:12 ~ executeBranch ~ branch, source_branch:", branch, source_branch)
     const child = shelljs.exec(`git worktree add ${branch} && cd ${branch} && git checkout ${branch} && git merge ${source_branch} && git push && cd ..`, {
       cwd: process.cwd(),
       async: true
