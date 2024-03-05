@@ -1,0 +1,84 @@
+const axios = require("axios");
+const xlsx = require("node-xlsx");
+const fs = require("fs");
+const moment = require('moment');
+const cheerio = require('cheerio');
+
+const baseURL = `https://www.zhilepin.com`
+const url = `/position/index-data.html?page=0&searchType=0&managerId=0&hunterId=0&pids=&keyword=&industry=&address=&scale=0&advance=0&positionArea=0&other=0&node=0&sort=sort-update&tab=all&firstLoad=false&aid=0&_=1709539981605`
+
+const Cookie = `passport=shop; Hm_lvt_022975d2274b49f82945ed1351fba279=1708219489,1708240464,1708318742,1709279295; guest=%7B%22guestNum%22%3A17565%2C%22managerId%22%3A1%2C%22imgCode%22%3A%22https%3A%5C%2F%5C%2Fa.zhilepin.com%5C%2Fuploads%5C%2F20230421%5C%2F1682059493114981.jpg%22%7D; PHPSESSID=c31sem16et6vge4mme99244re3; Hm_lpvt_022975d2274b49f82945ed1351fba279=1709542412`
+
+// 创建一个Axios实例
+const instance = axios.create({
+    baseURL // 设置基本URL
+});
+
+// 将Cookie信息作为配置项传递给Axios实例
+instance.defaults.headers.common['Cookie'] = Cookie;
+let list = []
+const options = {
+    params: {
+        page: 0
+    }
+}
+const firstRowTitle = ["岗位id", "岗位名称", "公司名称", "年龄范围", "JD", "地点", "薪资范围"]
+const getData = async () => {
+    const response = await instance.get(url, options)
+    const { positionList } = response.data
+    if (positionList.length) {
+        list = [...list, ...positionList]
+        options.params.page++
+        await getData()
+    }
+
+}
+
+
+(async () => {
+
+    await getData()
+
+    const jobList = list.map(i => {
+        return [
+            i.id,
+            i.positionVersion.position,
+            i.companyTitle,
+            i.positionVersion.age_min + "-" + i.positionVersion.age_max,
+            i.positionVersion.content.replace(/\n/ig, '')
+                                    .replace(/<\/\s*(?:p|div)>/ig, '\n')
+                                    .replace(/<br[^>]*\/?>/ig, '\n')
+                                    .replace(/&lt[^p&gt]*p&gt/ig, '')
+                                    .replace(/[^\S\r\n][^\S\r\n]+/ig, ' ')
+                                    .replace(/;/g," ")
+                                    .replace(/(&amp|nbsp)/g," "),
+            i.positionVersion.address + i.positionVersion.full_address,
+            i.salaryView
+        ]
+    })
+
+    const data = [firstRowTitle, ...jobList]
+    console.log("🚀 ~ getData ~ data:", data)
+
+    const excelSheets = [
+        {
+            name: "岗位列表",
+            data: data
+        }
+    ]
+    console.log("🚀 ~ getData ~ excelSheets:", excelSheets)
+
+
+    const buffer = xlsx.build(excelSheets);
+    const dataText = new Date()
+
+    fs.writeFile(`所有岗位列表${moment(dataText).format("YYYY-MM-DD")}.xlsx`, buffer, function (err) {
+        if (err) {
+            console.log(err, "导出excel失败");
+        } else {
+            console.log("导出excel成功!");
+        }
+    });
+})()
+
+

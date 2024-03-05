@@ -12,6 +12,7 @@ program.command(
   "batch exec command in selected dirs in current path"
 );
 program.command("batchmerge", "batch merge and push");
+program.command("pullJobsExcel", "batch merge and push");
 program.command("updateDeps", "batch manage dependencies");
 program.command("acommit", "auto commit");
 program.command("autoMerge", "auto mergeBranch git cmd");
